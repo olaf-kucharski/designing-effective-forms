@@ -20,6 +20,9 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
+const nameInput = document.getElementById('firstName');
+const lastNameInput = document.getElementById('lastName');
+const emailInput = document.getElementById('exampleInputEmail1');
 
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
@@ -35,6 +38,11 @@ const userSignIn = async () => {
     provider).then((result) => {
     const user = result.user;
     console.log(user);
+    const names = user.displayName.split(" ");
+    nameInput.value = names[0];
+    lastNameInput.value = names[1];
+    emailInput.value = user.email;
+    console.log(user.email);
     }).catch((error) => {
     const errorCode = error.code;
     const errorMessage = error.message;
